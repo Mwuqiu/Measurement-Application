@@ -19,19 +19,23 @@ import androidx.fragment.app.ListFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.testrool.R;
+import com.example.testrool.ShowResultActivity;
 import com.example.testrool.databinding.FragmentGalleryBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class GalleryFragment extends ListFragment {
 
     private FragmentGalleryBinding binding;
 
-    String[] my_array = {"2，4——D", "百草枯", "敌敌畏"};//数据待补充
+    static public  ArrayList<String> my_array =  new ArrayList<>();//数据待补充
 
-    String[] my_array1 = {"合格", "不合格", "合格"};//数据待补充
+    static public ArrayList<String> my_array1 = new ArrayList<>();
+
+    static private boolean initItem = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +46,12 @@ public class GalleryFragment extends ListFragment {
 
         View root = binding.getRoot();
 
+        if(initItem == false){
+            my_array.add("点此可查看详细信息");
+            my_array1.add("合格");
+            initItem = true;
+        }
+
         binding.list.setAdapter(new MyAdaptor(getActivity()));
 
         /*lv1 = binding.list;
@@ -49,14 +59,15 @@ public class GalleryFragment extends ListFragment {
         lv1.setAdapter(new MyAdaptor(HistoryPageActivity.this));//上下文传activity*/
 
 
-/*        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //点击条目转到resultactivity,可显示详细信息，待补充
-                Intent intent = new Intent(HistoryPageActivity.this,ShowResultActivity.class);
+                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
+                //TO DO 向 result Page 传递信息
                 startActivity(intent);
             }
-        });*/
+        });
 
 /*        final TextView textView = binding.textGallery;
 
@@ -84,7 +95,7 @@ public class GalleryFragment extends ListFragment {
 
         @Override
         public int getCount() {
-            return my_array.length;
+            return my_array.size();
         }
 
         @Override
@@ -105,8 +116,8 @@ public class GalleryFragment extends ListFragment {
             TextView tvv1 = view.findViewById(R.id.tvv1);
             TextView tvv2 = view.findViewById(R.id.tvv2);
             TextView tvv3 = view.findViewById(R.id.tvv3);
-            tvv1.setText(my_array[i]);
-            tvv2.setText(my_array1[i]);
+            tvv1.setText(my_array.get(i));
+            tvv2.setText(my_array1.get(i));
 
             //此处取当前时间，实际应改为取样时间
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");

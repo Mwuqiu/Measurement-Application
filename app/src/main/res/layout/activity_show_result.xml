@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.slideshow.SlideshowFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:text="2022年11月30日"
+            android:textSize="20sp"
+            android:typeface="serif"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pic"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#45AA07"
+            android:text="..." />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="5"
+        android:background="@drawable/image_0">
+
+        <ImageView
+            android:id="@+id/image0"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20sp"
+            android:layout_weight="1"
+            android:src="@drawable/image_3" />
+
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:layout_marginLeft="20sp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv0"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_marginBottom="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/image_5"
+                android:text="采样位置"
+                android:textSize="20sp"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/image_5"
+                android:text="采用模型"
+                android:textSize="20sp"
+                android:typeface="serif" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20sp"
+            android:text="结果分析"
+            android:textSize="25sp"
+            android:typeface="serif" />
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="80sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="10sp"
+            android:src="@drawable/image_1" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@drawable/image_6">
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="270dp"
+            android:layout_height="158dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="80sp"
+            android:text="welcome to result page ~"
+            android:textSize="25sp"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+</LinearLayout>
