@@ -9,31 +9,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="0sp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:text="2022年11月30日"
-            android:textSize="20sp"
-            android:typeface="serif"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/pic"
-            android:layout_width="0sp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#45AA07"
-            android:text="..." />
-    </LinearLayout>
-
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
@@ -65,7 +40,7 @@
                 android:layout_marginBottom="5sp"
                 android:layout_weight="1"
                 android:background="@drawable/image_5"
-                android:text="采样位置"
+                android:text="采样时间"
                 android:textSize="20sp"
                 android:typeface="serif" />
 

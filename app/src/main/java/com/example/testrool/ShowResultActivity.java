@@ -42,8 +42,9 @@ public class ShowResultActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //TODO 为历史界面添加信息
         Intent intent = new Intent(ShowResultActivity.this,HomePageActivity.class);
-        //intent.putExtra("fragmentChose","2");
         startActivity(intent);
+
     }
 }
