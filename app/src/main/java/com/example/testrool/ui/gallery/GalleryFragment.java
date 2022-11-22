@@ -82,8 +82,6 @@ public class GalleryFragment extends ListFragment {
         }
 
 
-
-
         binding.list.setAdapter(new HistoryAdapter(getActivity(),R.layout.history_item,historyItems));
 
 
