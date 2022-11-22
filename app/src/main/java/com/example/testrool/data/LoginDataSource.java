@@ -22,7 +22,7 @@ public class LoginDataSource {
 
         if ("root".equals(email)) {
             if ("rootroot".equals(password)) {
-                LoggedInUser.setLoggedInUser(123456, "root");
+                LoggedInUser.setLoggedInUser(123456, "root", "root@gmail.com");
                 return new Result.Success<>(LoggedInUser.getLoggedInUser());
             } else {
                 return new Result.Error(new IOException("Error logging in", new Exception("root password error.")));
@@ -34,7 +34,9 @@ public class LoginDataSource {
             JSONObject jsonObject = handleAuthentication(email, password);
             //flag = 1 : Successful
             if ("1".equals(jsonObject.get("flag"))) {
-                LoggedInUser.setLoggedInUser((Integer) jsonObject.get("uid"), (String) jsonObject.get("userName"));
+                LoggedInUser.setLoggedInUser((Integer) jsonObject.get("uid"),
+                        (String) jsonObject.get("userName"),
+                        (String) jsonObject.get("userEmail"));
 
                 return new Result.Success<>(LoggedInUser.getLoggedInUser());
             } else {

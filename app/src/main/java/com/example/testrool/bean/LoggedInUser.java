@@ -7,6 +7,36 @@ public class LoggedInUser {
 
     private static LoggedInUser loggedInUser = new LoggedInUser();
 
+    private Integer userId;
+    private String displayName;
+    private String email;
+
+    private LoggedInUser() {
+
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private LoggedInUser(Integer userId, String displayName, String email) {
+        this.displayName = displayName;
+        this.userId = userId;
+        this.email = email;
+    }
+
+    public static LoggedInUser getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(Integer userId, String displayName, String email) {
+        loggedInUser = new LoggedInUser(userId, displayName, email);
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -21,25 +51,6 @@ public class LoggedInUser {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    private Integer userId;
-    private String displayName;
-
-    private LoggedInUser() {
-
-    }
-    private LoggedInUser(Integer userId, String displayName) {
-        this.displayName = displayName;
-        this.userId = userId;
-    }
-
-    public static LoggedInUser getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public static void setLoggedInUser(Integer userId, String displayName) {
-        loggedInUser = new LoggedInUser(userId, displayName);
     }
 
 }

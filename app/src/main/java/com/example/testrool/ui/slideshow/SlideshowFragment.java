@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.testrool.R;
 import com.example.testrool.bean.LoggedInUser;
 import com.example.testrool.databinding.FragmentMyInfoBinding;
 import com.example.testrool.databinding.FragmentSlideshowBinding;
@@ -22,9 +23,11 @@ public class SlideshowFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 /*        SlideshowViewModel slideshowViewModel =
                 new ViewModelProvider(this).get(SlideshowViewModel.class);*/
-
         binding = FragmentMyInfoBinding.inflate(inflater, container, false);
         LoggedInUser user = LoggedInUser.getLoggedInUser();
+
+        binding.userName.setText(user.getDisplayName());
+        binding.userAccount.setText(user.getEmail());
 
         View root = binding.getRoot();
         return root;

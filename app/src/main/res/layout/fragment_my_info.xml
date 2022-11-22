@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/profile"
-            android:text="账号:"
+            android:text="邮箱:"
             android:textColor="#AAAAAA"
             android:textSize="14sp"/>
         <TextView
