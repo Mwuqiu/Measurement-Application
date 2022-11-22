@@ -1,37 +1,30 @@
 package com.example.testrool.ui.gallery;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.example.testrool.Http.HttpUtil;
 import com.example.testrool.R;
+import com.example.testrool.Http.URLs;
+import com.example.testrool.adapter.HistoryAdapter;
+import com.example.testrool.bean.HistoryItem;
+import com.example.testrool.bean.LoggedInUser;
 import com.example.testrool.databinding.FragmentGalleryBinding;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class GalleryFragment extends ListFragment {
 
     private FragmentGalleryBinding binding;
-
-    String[] my_array = {"2，4——D", "百草枯", "敌敌畏"};//数据待补充
-
-    String[] my_array1 = {"合格", "不合格", "合格"};//数据待补充
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +35,57 @@ public class GalleryFragment extends ListFragment {
 
         View root = binding.getRoot();
 
-        binding.list.setAdapter(new MyAdaptor(getActivity()));
+//        binding.list.setAdapter(new MyAdaptor(getActivity()));
+
+        ArrayList<HistoryItem> historyItems = new ArrayList<>();
+
+        LoggedInUser user = LoggedInUser.getLoggedInUser();
+
+        if(!"root".equals(user.getDisplayName())){
+            //联网状态
+            try {
+                String res = HttpUtil.postToServer(URLs.HISTORYITEM_SERVLET + "?id=" + user.getUserId(), null);
+                Log.e("RES", res);
+                JSONArray jsonArray = JSONArray.fromObject(res);
+                for (Object a : jsonArray){
+                    JSONObject x = (JSONObject) JSONObject.fromObject(a);
+                    HistoryItem historyItem = new HistoryItem();
+                    historyItem.setItemName((String) x.get("itemName"));
+                    historyItem.setResult((String) x.get("result"));
+                    historyItem.setDate((String) x.get("date"));
+                    historyItems.add(historyItem);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            //离线状态
+            HistoryItem historyItem = new HistoryItem();
+            historyItem.setItemName("敌敌畏");
+            historyItem.setResult("合格");
+            historyItem.setDate("2021-02-19 13:14:07");
+            historyItems.add(historyItem);
+
+            historyItem = new HistoryItem();
+            historyItem.setItemName("敌敌畏");
+            historyItem.setResult("不合格");
+            historyItem.setDate("2022-11-19 10:01:15");
+            historyItems.add(historyItem);
+
+            historyItem = new HistoryItem();
+            historyItem.setItemName("2,4-D");
+            historyItem.setResult("不合格");
+            historyItem.setDate("2022-09-11 08:31:22");
+            historyItems.add(historyItem);
+        }
+
+
+
+
+        binding.list.setAdapter(new HistoryAdapter(getActivity(),R.layout.history_item,historyItems));
+
 
         /*lv1 = binding.list;
 
@@ -74,48 +117,48 @@ public class GalleryFragment extends ListFragment {
         return root;
     }
 
-    public class MyAdaptor extends BaseAdapter {//lv1的适配器
-
-        Context context;
-
-        public MyAdaptor(Context context) {
-            this.context = context;
-        }//带参构造函数
-
-        @Override
-        public int getCount() {
-            return my_array.length;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return i;
-        }//条目位置
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            //布局从itemview1中获取
-            view = LayoutInflater.from(context).inflate(R.layout.history_item, null);
-
-            TextView tvv1 = view.findViewById(R.id.tvv1);
-            TextView tvv2 = view.findViewById(R.id.tvv2);
-            TextView tvv3 = view.findViewById(R.id.tvv3);
-            tvv1.setText(my_array[i]);
-            tvv2.setText(my_array1[i]);
-
-            //此处取当前时间，实际应改为取样时间
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-            String str = formatter.format(curDate);
-            tvv3.setText(str);
-            return view;
-        }
-    }
+//    public class MyAdaptor extends BaseAdapter {//lv1的适配器
+//
+//        Context context;
+//
+//        public MyAdaptor(Context context) {
+//            this.context = context;
+//        }//带参构造函数
+//
+//        @Override
+//        public int getCount() {
+//            return my_array.length;
+//        }
+//
+//        @Override
+//        public Object getItem(int i) {
+//            return i;
+//        }//条目位置
+//
+//        @Override
+//        public long getItemId(int i) {
+//            return i;
+//        }
+//
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//            //布局从itemview1中获取
+//            view = LayoutInflater.from(context).inflate(R.layout.history_item, null);
+//
+//            TextView tvv1 = view.findViewById(R.id.tvv1);
+//            TextView tvv2 = view.findViewById(R.id.tvv2);
+//            TextView tvv3 = view.findViewById(R.id.tvv3);
+//            tvv1.setText(my_array[i]);
+//            tvv2.setText(my_array1[i]);
+//
+//            //此处取当前时间，实际应改为取样时间
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+//            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+//            String str = formatter.format(curDate);
+//            tvv3.setText(str);
+//            return view;
+//        }
+//    }
 
     @Override
     public void onDestroyView() {

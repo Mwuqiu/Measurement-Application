@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.testrool.R;
 import com.example.testrool.data.LoginRepository;
 import com.example.testrool.data.Result;
-import com.example.testrool.data.model.LoggedInUser;
+import com.example.testrool.bean.LoggedInUser;
 
 public class LoginViewModel extends ViewModel {
 

@@ -1,4 +1,4 @@
-package com.example.testrool;
+package com.example.testrool.Http;
 
 
 import android.util.Log;
@@ -60,7 +60,10 @@ public class HttpUtil {
     }
 
     public static void post(Object param, String url) {
-        RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), param.toString());
+        String str = null;
+        if(param == null)  str = "";
+        else str = param.toString();
+        RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), str);
 
         try {
             Request request = new Request.Builder().url(url).post(requestBody).build();
