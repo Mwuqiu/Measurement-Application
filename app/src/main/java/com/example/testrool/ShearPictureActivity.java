@@ -1,5 +1,8 @@
 package com.example.testrool;
 
+import com.example.testrool.Calculater.CalculateGray;
+import com.example.testrool.ui.gallery.GalleryFragment;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.testrool.Calculater.CalculateGray;
+
 
 import java.io.FileNotFoundException;
 
@@ -53,7 +56,14 @@ public class ShearPictureActivity extends AppCompatActivity {
                 //点击确定跳转至 result 界面， 需要传送 图片 + 浓度值 + 日期
                 //mdoe == 1 为平均值
                 //Log.e("tempResult", String.valueOf(new CalculateGray().getGray(bitmap,1)));
-                reChoseBtn.setText(String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                //reChoseBtn.setText(String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                Intent intent = new Intent(ShearPictureActivity.this,ShowResultActivity.class);
+                intent.putExtra("picture_uri", imageUri.toString());
+                intent.putExtra("cal_result",String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                //TO DO 改变 item 的值
+                GalleryFragment.my_array.add("testItem");
+                GalleryFragment.my_array1.add("testItem1");
+                startActivity(intent);
             }
         });
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

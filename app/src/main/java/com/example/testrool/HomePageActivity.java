@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.testrool.ui.gallery.GalleryFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -40,7 +42,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class HomePageActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
 
     private ActivityMineInfoBinding binding;
@@ -48,7 +49,6 @@ public class HomePageActivity extends AppCompatActivity {
     public static final int TakePhoto = 1;
 
     public static final int ChoosePhoto = 2;
-
     private Uri imageUri;
 
     @Override
@@ -82,6 +82,28 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+/*        Intent intent = getIntent();
+        if(intent != null){
+            String str = intent.getStringExtra("fragmentChose");
+            Log.e("checkSwitch",str + "1");
+            if(str != null){
+                Log.e("checkSwitch",str);
+                switch (str){
+                    case "2":
+*//*                        FragmentTransaction transaction = ;
+                        transaction.hide();
+                        hideFragments(fragmentTransaction);
+                        fragmentTransaction*//*
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.nav_host_fragment_content_mine_info,new GalleryFragment())
+                                .addToBackStack(null)
+                                .commit();
+                        break;
+                }
+            }
+        }*/
+
     }
 
     private void showChoseWayMenu(View view) {
@@ -113,6 +135,7 @@ public class HomePageActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

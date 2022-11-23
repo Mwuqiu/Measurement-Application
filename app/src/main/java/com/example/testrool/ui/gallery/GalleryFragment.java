@@ -15,12 +15,16 @@ import com.example.testrool.Http.URLs;
 import com.example.testrool.adapter.HistoryAdapter;
 import com.example.testrool.bean.HistoryItem;
 import com.example.testrool.bean.LoggedInUser;
+import com.example.testrool.ShowResultActivity;
 import com.example.testrool.databinding.FragmentGalleryBinding;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class GalleryFragment extends ListFragment {
 
@@ -42,7 +46,7 @@ public class GalleryFragment extends ListFragment {
         LoggedInUser user = LoggedInUser.getLoggedInUser();
 
         if(!"root".equals(user.getDisplayName())){
-            //联网状态
+            //联网状�?
             try {
                 String res = HttpUtil.postToServer(URLs.HISTORYITEM_SERVLET + "?id=" + user.getUserId(), null);
                 Log.e("RES", res);
@@ -61,22 +65,22 @@ public class GalleryFragment extends ListFragment {
                 e.printStackTrace();
             }
         }else{
-            //离线状态
+            //离线状�?
             HistoryItem historyItem = new HistoryItem();
-            historyItem.setItemName("敌敌畏");
+            historyItem.setItemName("敌敌�?");
             historyItem.setResult("合格");
             historyItem.setDate("2021-02-19 13:14:07");
             historyItems.add(historyItem);
 
             historyItem = new HistoryItem();
-            historyItem.setItemName("敌敌畏");
-            historyItem.setResult("不合格");
+            historyItem.setItemName("敌敌�?");
+            historyItem.setResult("不合�?");
             historyItem.setDate("2022-11-19 10:01:15");
             historyItems.add(historyItem);
 
             historyItem = new HistoryItem();
             historyItem.setItemName("2,4-D");
-            historyItem.setResult("不合格");
+            historyItem.setResult("不合�?");
             historyItem.setDate("2022-09-11 08:31:22");
             historyItems.add(historyItem);
         }
@@ -90,14 +94,15 @@ public class GalleryFragment extends ListFragment {
         lv1.setAdapter(new MyAdaptor(HistoryPageActivity.this));//上下文传activity*/
 
 
-/*        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //点击条目转到resultactivity,可显示详细信息，待补充
-                Intent intent = new Intent(HistoryPageActivity.this,ShowResultActivity.class);
+                //点击条目�?到resultactivity,�?显示详细信息，待补充
+                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
+                //TO DO �? result Page 传递信�?
                 startActivity(intent);
             }
-        });*/
+        });
 
 /*        final TextView textView = binding.textGallery;
 
@@ -115,13 +120,13 @@ public class GalleryFragment extends ListFragment {
         return root;
     }
 
-//    public class MyAdaptor extends BaseAdapter {//lv1的适配器
+//    public class MyAdaptor extends BaseAdapter {//lv1的适配�?
 //
 //        Context context;
 //
 //        public MyAdaptor(Context context) {
 //            this.context = context;
-//        }//带参构造函数
+//        }//带参构造函�?
 //
 //        @Override
 //        public int getCount() {
@@ -140,7 +145,7 @@ public class GalleryFragment extends ListFragment {
 //
 //        @Override
 //        public View getView(int i, View view, ViewGroup viewGroup) {
-//            //布局从itemview1中获取
+//            //布局从itemview1�?获取
 //            view = LayoutInflater.from(context).inflate(R.layout.history_item, null);
 //
 //            TextView tvv1 = view.findViewById(R.id.tvv1);
@@ -149,8 +154,8 @@ public class GalleryFragment extends ListFragment {
 //            tvv1.setText(my_array[i]);
 //            tvv2.setText(my_array1[i]);
 //
-//            //此处取当前时间，实际应改为取样时间
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+//            //此�?�取当前时间，实际应改为取样时间
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd�? HH:mm:ss");
 //            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
 //            String str = formatter.format(curDate);
 //            tvv3.setText(str);
