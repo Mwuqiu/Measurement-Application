@@ -2,8 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/take_photo"
-        android:title="拍照" />
+        android:title="拍摄图片分析" />
     <item
         android:id="@+id/access_dir"
-        android:title="选择" />
+        android:title="选择图片分析" />
+    <item
+        android:id="@+id/build_mode"
+        android:title="构建新模型" />
 </menu>
