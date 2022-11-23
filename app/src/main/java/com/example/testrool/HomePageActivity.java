@@ -93,7 +93,7 @@ public class HomePageActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.take_photo:
                         startCamera();
                         break;
@@ -101,7 +101,7 @@ public class HomePageActivity extends AppCompatActivity {
                         openAlbumMethod();
                         break;
                     case R.id.build_mode:
-                        Intent intent = new Intent(HomePageActivity.this,ModeBuildActivity.class);
+                        Intent intent = new Intent(HomePageActivity.this, ModeBuildActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -171,7 +171,8 @@ public class HomePageActivity extends AppCompatActivity {
         switch (requestCode) {
             case TakePhoto:
                 if (resultCode == RESULT_OK) {
-                   Intent intent = new Intent(HomePageActivity.this, ShearPictureActivity.class);
+                    Intent intent = new Intent(HomePageActivity.this, ShearPictureActivity.class);
+                    intent.putExtra("fromActivity", "HomePage");
                     intent.putExtra("picture_uri", imageUri.toString());
                     startActivity(intent);
                 }
@@ -264,7 +265,7 @@ public class HomePageActivity extends AppCompatActivity {
             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
             Intent intent = new Intent(HomePageActivity.this, ShearPictureActivity.class);
             intent.putExtra("picture_uri", uri.toString());
-            intent.putExtra("fromActivity","HomePage");
+            intent.putExtra("fromActivity", "HomePage");
             startActivity(intent);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
