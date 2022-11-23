@@ -94,15 +94,15 @@ public class GalleryFragment extends ListFragment {
         lv1.setAdapter(new MyAdaptor(HistoryPageActivity.this));//上下文传activity*/
 
 
-        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //点击条目�?到resultactivity,�?显示详细信息，待补充
-                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
-                //TO DO �? result Page 传递信�?
-                startActivity(intent);
-            }
-        });
+//        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                //点击条目�?到resultactivity,�?显示详细信息，待补充
+//                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
+//                //TO DO �? result Page 传递信�?
+//                startActivity(intent);
+//            }
+//        });
 
 /*        final TextView textView = binding.textGallery;
 

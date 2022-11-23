@@ -61,8 +61,8 @@ public class ShearPictureActivity extends AppCompatActivity {
                 intent.putExtra("picture_uri", imageUri.toString());
                 intent.putExtra("cal_result",String.valueOf(new CalculateGray().getGray(bitmap,2)));
                 //TO DO 改变 item 的值
-                GalleryFragment.my_array.add("testItem");
-                GalleryFragment.my_array1.add("testItem1");
+//                GalleryFragment.my_array.add("testItem");
+//                GalleryFragment.my_array1.add("testItem1");
                 startActivity(intent);
             }
         });
