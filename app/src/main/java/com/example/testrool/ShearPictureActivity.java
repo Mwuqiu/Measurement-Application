@@ -69,7 +69,14 @@ public class ShearPictureActivity extends AppCompatActivity {
         imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
         picture = findViewById(R.id.picture);
         pictureCropping(imageUri);
-
+        reChoseBtn = findViewById(R.id.reshear_button);
+        reChoseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShearPictureActivity.this,HomePageActivity.class);
+                startActivity(intent);
+            }
+        });
         finishBtn = findViewById(R.id.confirm_button);
 
         reChoseBtn = findViewById(R.id.reshear_button);
