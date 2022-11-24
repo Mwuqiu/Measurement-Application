@@ -15,16 +15,13 @@ import com.example.testrool.Http.URLs;
 import com.example.testrool.adapter.HistoryAdapter;
 import com.example.testrool.bean.HistoryItem;
 import com.example.testrool.bean.LoggedInUser;
-import com.example.testrool.ShowResultActivity;
 import com.example.testrool.databinding.FragmentGalleryBinding;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+
 
 public class GalleryFragment extends ListFragment {
 

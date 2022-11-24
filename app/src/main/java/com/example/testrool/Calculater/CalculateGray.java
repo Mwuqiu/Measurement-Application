@@ -26,7 +26,7 @@ public class CalculateGray {
     final static int averageMode = 1;
     final static int medianMode = 2;
 
-    public double getGray(Bitmap bitmap, int mode) {
+    public static double getGray(Bitmap bitmap, int mode) {
         double result = 0;
         int height = bitmap.getHeight();//图片的高度
         int width = bitmap.getWidth();//图片的宽度

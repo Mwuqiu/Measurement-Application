@@ -12,18 +12,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ShowResultActivity extends Activity {
 
     ImageView imageView;
 
     TextView resultText;
+    TextView getTime;
+    TextView modelName;
+
     Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_result);
+        setContentView(R.layout.fragment_slideshow);
         Intent intent = getIntent();
         imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
         imageView = findViewById(R.id.image0);
@@ -33,11 +38,26 @@ public class ShowResultActivity extends Activity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        imageView.setImageBitmap(bitmap);
-        resultText = findViewById(R.id.tv2);
-        resultText.setText(intent.getStringExtra("cal_result"));
-    }
 
+        imageView.setImageBitmap(bitmap);
+
+        resultText = findViewById(R.id.analize);
+
+        String str = "采用模型 : " + intent.getStringExtra("model_name") + "图片灰度值 : "+intent.getStringExtra("grey_result")
+                + "预测浓度值 : " + intent.getStringExtra("concen_result");
+
+        resultText.setText(str);
+
+        getTime = findViewById(R.id.get_model_time);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());
+        String strTime = formatter.format(curDate);
+        getTime.setText(strTime);
+
+        modelName = findViewById(R.id.show_model_name);
+        modelName.setText(intent.getStringExtra("model_name"));
+    }
     // to do 改变跳转的方式  这个会卡一下  避免使用回退键
     @Override
     protected void onDestroy() {

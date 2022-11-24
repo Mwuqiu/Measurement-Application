@@ -1,9 +1,18 @@
 package com.example.testrool.bean;
 
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+
+import java.util.List;
+
 public class Model {
+
     private Integer modelId;
+
     private String name;
+
     private String date;
+
     private Double A,B;
     // y = Ax + b
 
@@ -46,4 +55,24 @@ public class Model {
     public void setB(Double b) {
         B = b;
     }
+
+    public JSONObject toJSONObject() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("modelName",name);
+        jsonObject.put("date",date);
+//        jsonObject.put("A",A);
+//        jsonObject.put("B",B);1
+        return jsonObject;
+    }
+    public static Model fromJSONObject(JSONObject jsonObject) throws JSONException {
+        //{"date":"2022-01-19 03:14:07","a":1,"modelName":"敌敌畏","b":2,"modelId":1,"userId":8}
+        Model model = new Model();
+        model.setModelId(jsonObject.getInt("modelId"));
+        model.setDate(jsonObject.getString("date"));
+        model.setA(jsonObject.getDouble("a"));
+        model.setB(jsonObject.getDouble("b"));
+        return model;
+    }
+
+
 }
