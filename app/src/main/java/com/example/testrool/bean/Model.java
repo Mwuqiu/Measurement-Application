@@ -60,14 +60,15 @@ public class Model {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("modelName",name);
         jsonObject.put("date",date);
-//        jsonObject.put("A",A);
-//        jsonObject.put("B",B);1
+        jsonObject.put("A",A);
+        jsonObject.put("B",B);
         return jsonObject;
     }
     public static Model fromJSONObject(JSONObject jsonObject) throws JSONException {
         //{"date":"2022-01-19 03:14:07","a":1,"modelName":"敌敌畏","b":2,"modelId":1,"userId":8}
         Model model = new Model();
         model.setModelId(jsonObject.getInt("modelId"));
+        model.setName(jsonObject.getString("modelName"));
         model.setDate(jsonObject.getString("date"));
         model.setA(jsonObject.getDouble("a"));
         model.setB(jsonObject.getDouble("b"));

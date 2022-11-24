@@ -4,7 +4,7 @@ public class URLs {
 
 
     //public static String IP = "192.168.3.250";
-    //public static String IP = "10.0.2.2";
+//    public static String IP = "10.0.2.2";
     public static String IP = "49.140.60.45";
 //    public static String IP = "192.168.212.191";
 

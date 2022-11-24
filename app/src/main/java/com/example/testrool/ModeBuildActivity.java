@@ -38,7 +38,11 @@ import android.widget.Toast;
 import com.example.testrool.Calculater.CalculateModel;
 import com.example.testrool.Http.HttpUtil;
 import com.example.testrool.Http.URLs;
+import com.example.testrool.bean.LoggedInUser;
 import com.example.testrool.bean.Model;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
@@ -73,6 +77,7 @@ public class ModeBuildActivity extends AppCompatActivity {
                     y[i] = Double.parseDouble(imageGrayLevel.get(i));
                 }
                 Model model = CalculateModel.getModel(x,y,imageConcen.size());
+                Log.e("AB",model.getA() + " " + model.getB());
                 //生成输入model名字的输入框
 
                 final EditText inputServer = new EditText(ModeBuildActivity.this);
@@ -89,8 +94,10 @@ public class ModeBuildActivity extends AppCompatActivity {
                             // TODO 上传 MODLE  String -> Json  sign 为名字
                             model.setName(sign);
                             model.setDate(String.valueOf(System.currentTimeMillis()));
+                            JSONObject jsonObject = model.toJSONObject();
+                            jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
                             try {
-                                HttpUtil.postToServer(URLs.UPLOAD_MODEL_SERVLET, model.toJSONObject());
+                                HttpUtil.postToServer(URLs.UPLOAD_MODEL_SERVLET, jsonObject);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
