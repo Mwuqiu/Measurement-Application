@@ -22,4 +22,6 @@ public class URLs {
     public static String UPLOAD_MODEL_SERVLET = preURL + "UploadModel";
 
     public static String GET_MODEL_SERVLET = preURL + "GetModels";
+
+    public static String UPLOAD_HISTORYITEM_SERVLET = preURL + "UploadHistoryItem";
 }

@@ -50,10 +50,7 @@ public class GalleryFragment extends ListFragment {
                 JSONArray jsonArray = JSONArray.fromObject(res);
                 for (Object a : jsonArray){
                     JSONObject x = (JSONObject) JSONObject.fromObject(a);
-                    HistoryItem historyItem = new HistoryItem();
-                    historyItem.setItemName((String) x.get("itemName"));
-                    historyItem.setResult((String) x.get("result"));
-                    historyItem.setDate((String) x.get("date"));
+                    HistoryItem historyItem = HistoryItem.fromJSONObject(x);
                     historyItems.add(historyItem);
                 }
             } catch (InterruptedException e) {
