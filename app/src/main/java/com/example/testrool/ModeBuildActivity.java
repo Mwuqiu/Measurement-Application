@@ -53,9 +53,11 @@ public class ModeBuildActivity extends AppCompatActivity {
     static public ArrayList<String> imageId =  new ArrayList<>();
     static public ArrayList<String> imageConcen =  new ArrayList<>();
     static public ArrayList<String> imageGrayLevel =  new ArrayList<>();
+    static public ArrayList<String> imageUriList = new ArrayList<>();
+
     final int ChoosePhoto = 1;
     ListView listView;
-    Uri imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +103,9 @@ public class ModeBuildActivity extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            Toast.makeText(ModeBuildActivity.this, "建立成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ModeBuildActivity.this,HomePageActivity.class);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(ModeBuildActivity.this, "请为您建立的Model设置名称", Toast.LENGTH_SHORT).show();
                         }
@@ -117,7 +122,8 @@ public class ModeBuildActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent.getStringExtra("picture_uri") != null) {
-            imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
+            imageUriList.add(intent.getStringExtra("picture_uri"));
+//            imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
             imageId.add(String.valueOf(imageId.size() + 1));
             imageGrayLevel.add(intent.getStringExtra("cal_result"));
             imageConcen.add("not added");
@@ -277,6 +283,8 @@ public class ModeBuildActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+
+            Uri imageUri = Uri.parse(imageUriList.get(i));
 
             view = LayoutInflater.from(context).inflate(R.layout.buildmode_item, null);
 
