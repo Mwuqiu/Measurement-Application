@@ -41,7 +41,7 @@ public class CalculateGray {
                 //转灰度值
                 gray[i][j] = imgRGB[i][j].red * 0.299 + imgRGB[i][j].green * 0.587 + imgRGB[i][j].blue * 0.114;
                 //打印信息
-                Log.e("pictureInfoShow", imgRGB[i][j].Print() + "  " + gray[i][j]);
+                //Log.e("pictureInfoShow", imgRGB[i][j].Print() + "  " + gray[i][j]);
             }
         }
         switch (mode) {

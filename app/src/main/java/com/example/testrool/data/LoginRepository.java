@@ -1,6 +1,6 @@
 package com.example.testrool.data;
 
-import com.example.testrool.data.model.LoggedInUser;
+import com.example.testrool.bean.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

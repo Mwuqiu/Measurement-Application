@@ -1,5 +1,10 @@
 package com.example.testrool;
 
+import com.example.testrool.Calculater.CalculateGray;
+import com.example.testrool.bean.HistoryItem;
+import com.example.testrool.bean.LoggedInUser;
+import com.example.testrool.ui.gallery.GalleryFragment;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,9 +18,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.testrool.Calculater.CalculateGray;
+
 
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 public class ShearPictureActivity extends AppCompatActivity {
 
@@ -32,6 +38,7 @@ public class ShearPictureActivity extends AppCompatActivity {
     private Button finishBtn;
 
     private Button reChoseBtn;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,9 @@ public class ShearPictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shear_picture);
 
         Intent intent = getIntent();
+
+        String fromActivity = intent.getStringExtra("fromActivity");
+
         imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
         picture = findViewById(R.id.picture);
         pictureCropping(imageUri);
@@ -50,31 +60,62 @@ public class ShearPictureActivity extends AppCompatActivity {
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //点击确定跳转至 result 界面， 需要传送 图片 + 浓度值 + 日期
-                //mdoe == 1 为平均值
-                //Log.e("tempResult", String.valueOf(new CalculateGray().getGray(bitmap,1)));
-                reChoseBtn.setText(String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                if(fromActivity.equals("ModeBuild")){
+                    //TODO 跳转至创建模型界�? 传递浓度�?
+                    Intent intent = new Intent(ShearPictureActivity.this,ModeBuildActivity.class);
+                    intent.putExtra("picture_uri", imageUri.toString());
+                    intent.putExtra("cal_result",String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(ShearPictureActivity.this,ShowResultActivity.class);
+                    intent.putExtra("picture_uri", imageUri.toString());
+
+                    HistoryItem historyItem = new HistoryItem();
+
+                    String res = String.valueOf(new CalculateGray().getGray(bitmap,2));
+                    //mode = 1 average
+                    //mode = 2 middle
+                    intent.putExtra("cal_result",res);
+                    startActivity(intent);
+                    historyItem.setResult(res);
+                    historyItem.setDate(String.valueOf(new Date(System.currentTimeMillis())));
+//                    historyItem.setItemName();
+                    String uid = LoggedInUser.getLoggedInUser().getUserId().toString();
+
+
+                    //onDestroy();
+                }
+                //Intent intent = new Intent(ShearPictureActivity.this,ShowResultActivity.class);
+                //intent.putExtra("picture_uri", imageUri.toString());
+                //intent.putExtra("cal_result",String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                //TO DO 改变 item 的�?
+//                GalleryFragment.my_array.add("testItem");
+//                GalleryFragment.my_array1.add("testItem1");
+                // startActivity(intent);
             }
         });
+
+
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         builder.detectFileUriExposure();
     }
 
     private void pictureCropping(Uri uri) {
-        // 调用系统图片剪裁
+        // 调用系统图片�?�?
         Intent intent = new Intent("com.android.camera.action.CROP");
 
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
         intent.setDataAndType(uri, "image/*");
-        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        // 下面这个crop=true�?设置在开�?的Intent�?设置显示的VIEW�?裁剪
         intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
+        // aspectX aspectY �?宽高的比�?
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        // outputX` outputY 是裁剪图片宽高
+        // outputX` outputY �?裁剪图片宽高
         intent.putExtra("outputX", 150);
         intent.putExtra("outputY", 150);
 

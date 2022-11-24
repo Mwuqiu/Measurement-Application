@@ -1,9 +1,8 @@
 package com.example.testrool.data;
 
-import com.example.testrool.HttpUtil;
-import com.example.testrool.URLs;
-import com.example.testrool.data.model.LoggedInUser;
-import com.example.testrool.URLs;
+import com.example.testrool.Http.HttpUtil;
+import com.example.testrool.Http.URLs;
+import com.example.testrool.bean.LoggedInUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,14 +20,11 @@ public class LoginDataSource {
 
     public Result<LoggedInUser> login(String email, String password) {
 
-        if("root".equals(email)){
-            if("rootroot".equals(password)) {
-                LoggedInUser user =
-                        new LoggedInUser(
-                                "123456",
-                                "root");
-                return new Result.Success<>(user);
-            }else{
+        if ("root".equals(email)) {
+            if ("rootroot".equals(password)) {
+                LoggedInUser.setLoggedInUser(123456, "root", "root@gmail.com");
+                return new Result.Success<>(LoggedInUser.getLoggedInUser());
+            } else {
                 return new Result.Error(new IOException("Error logging in", new Exception("root password error.")));
             }
         }
@@ -38,16 +34,14 @@ public class LoginDataSource {
             JSONObject jsonObject = handleAuthentication(email, password);
             //flag = 1 : Successful
             if ("1".equals(jsonObject.get("flag"))) {
-                LoggedInUser user =
-                        new LoggedInUser(
-                                (String) jsonObject.get("uid"),
-                                (String) jsonObject.get("username"));
-                return new Result.Success<>(user);
+                LoggedInUser.setLoggedInUser((Integer) jsonObject.get("uid"),
+                        (String) jsonObject.get("userName"),
+                        (String) jsonObject.get("userEmail"));
+
+                return new Result.Success<>(LoggedInUser.getLoggedInUser());
             } else {
                 throw new Exception((String) jsonObject.get("message"));
             }
-
-
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }
@@ -59,7 +53,6 @@ public class LoginDataSource {
         postJsonObject.put("password", password);
         String res = HttpUtil.postToServer(login_url, postJsonObject);
         return new JSONObject(res);
-
     }
 
 

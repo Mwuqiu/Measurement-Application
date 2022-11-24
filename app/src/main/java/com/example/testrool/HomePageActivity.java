@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.testrool.ui.gallery.GalleryFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -40,7 +42,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class HomePageActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
 
     private ActivityMineInfoBinding binding;
@@ -64,14 +65,13 @@ public class HomePageActivity extends AppCompatActivity {
         binding.appBarMineInfo.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-/*                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
                 showChoseWayMenu(binding.appBarMineInfo.fab);
             }
         });
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -93,12 +93,16 @@ public class HomePageActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.take_photo:
                         startCamera();
                         break;
                     case R.id.access_dir:
                         openAlbumMethod();
+                        break;
+                    case R.id.build_mode:
+                        Intent intent = new Intent(HomePageActivity.this, ModeBuildActivity.class);
+                        startActivity(intent);
                         break;
                 }
                 return false;
@@ -108,17 +112,29 @@ public class HomePageActivity extends AppCompatActivity {
         popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
             @Override
             public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.mine_info, menu);
         return true;
     }
+
+    /*@Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.shareButton:
+                //to do tiaozhuan share page
+                break;
+        }
+        return true;
+    }
+*/
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -155,7 +171,8 @@ public class HomePageActivity extends AppCompatActivity {
         switch (requestCode) {
             case TakePhoto:
                 if (resultCode == RESULT_OK) {
-                   Intent intent = new Intent(HomePageActivity.this, ShearPictureActivity.class);
+                    Intent intent = new Intent(HomePageActivity.this, ShearPictureActivity.class);
+                    intent.putExtra("fromActivity", "HomePage");
                     intent.putExtra("picture_uri", imageUri.toString());
                     startActivity(intent);
                 }
@@ -248,6 +265,7 @@ public class HomePageActivity extends AppCompatActivity {
             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
             Intent intent = new Intent(HomePageActivity.this, ShearPictureActivity.class);
             intent.putExtra("picture_uri", uri.toString());
+            intent.putExtra("fromActivity", "HomePage");
             startActivity(intent);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();

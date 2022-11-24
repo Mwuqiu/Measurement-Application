@@ -6,20 +6,152 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/im_home1"
+        android:src="@drawable/home2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/zixun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toRightOf="@id/im_home1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="农业资讯"
+        android:textSize="25dp"
+        />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/home_im1"
+        android:src="@drawable/im1"
+        app:layout_constraintTop_toBottomOf="@id/im_home1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
+    <TextView
+        android:id="@+id/atc1"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="15dp"
+        android:textAlignment="center"
+        android:text="菜篮子"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toRightOf="@id/home_im1"
+        app:layout_constraintTop_toBottomOf="@id/im_home1"
+        />
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/home_im2"
+        android:src="@drawable/im2"
+        app:layout_constraintTop_toBottomOf="@id/home_im1"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/atc2"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="15dp"
+        android:textAlignment="center"
+        android:text="科技创新"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toRightOf="@id/home_im2"
+        app:layout_constraintTop_toBottomOf="@id/home_im1"
+        />
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/im_home2"
+        android:src="@drawable/home2"
+        app:layout_constraintTop_toBottomOf="@id/home_im2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/nongyao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toRightOf="@id/im_home2"
+        app:layout_constraintTop_toBottomOf="@id/home_im2"
+        android:text="农药介绍"
+        android:textSize="25dp"
+        />
+
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/home_im3"
+        android:src="@drawable/d24"
+        app:layout_constraintTop_toBottomOf="@id/im_home2"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/atc3"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="15dp"
+        android:textAlignment="center"
+        android:text="2,4-D"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toRightOf="@id/home_im3"
+        app:layout_constraintTop_toBottomOf="@id/im_home2"
+        />
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/home_im4"
+        android:src="@drawable/awjs"
+        app:layout_constraintTop_toBottomOf="@id/home_im3"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/atc4"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="15dp"
+        android:textAlignment="center"
+        android:text="科技创新"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toRightOf="@id/home_im4"
+        app:layout_constraintTop_toBottomOf="@id/home_im3"
+        />
 
 
 
