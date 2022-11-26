@@ -99,7 +99,7 @@ public class ModeBuildActivity extends AppCompatActivity {
                             JSONObject jsonObject = model.toJSONObject();
                             jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
                             try {
-                                HttpUtil.postToServer(URLs.UPLOAD_MODEL_SERVLET, jsonObject);
+                                HttpUtil.postToServer(URLs.getModelUploadServlet(),jsonObject);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

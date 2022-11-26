@@ -96,7 +96,7 @@ public class ShearPictureActivity extends AppCompatActivity {
                     ArrayList<Model> modelList = new ArrayList<>();
                     ArrayList<String> itemNames = new ArrayList<>();
                     try {
-                        String res = HttpUtil.postToServer(URLs.GET_MODEL_SERVLET + "?uid=" + LoggedInUser.getLoggedInUser().getUserId(), null);
+                        String res = HttpUtil.postToServer(URLs.getModelServlet() + "?uid=" + LoggedInUser.getLoggedInUser().getUserId(), null);
                         JSONArray jsonArray = JSONArray.fromObject(res);
                         for (Object jsonObject : jsonArray) {
                             JSONObject x = JSONObject.fromObject(jsonObject);

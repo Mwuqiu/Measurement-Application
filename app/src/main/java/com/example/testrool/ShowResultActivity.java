@@ -74,7 +74,7 @@ public class ShowResultActivity extends Activity {
         JSONObject jsonObject = historyItem.toJSONObject();
         jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
         try {
-            HttpUtil.postToServer(URLs.UPLOAD_HISTORYITEM_SERVLET,jsonObject);
+            HttpUtil.postToServer(URLs.getHistoryUploadServlet(),jsonObject);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

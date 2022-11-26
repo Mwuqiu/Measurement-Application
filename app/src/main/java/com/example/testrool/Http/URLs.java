@@ -20,17 +20,32 @@ public class URLs {
     public static void setIP(String IP) {
         URLs.IP = IP;
     }
+
+    private static String preURL() {
+        return "http://" + IP + ":" + PORT + "/MeasurementAppServer/";
+    }
+
     public static String getJsonTestServlet() {
-        return "http://" + IP + ":" + PORT + "/MeasurementAppServer/JsonTestServlet";
+        return preURL() + "JsonTestServlet";
     }
 
     public static String getLoginServlet() {
-        return "http://" + IP + ":" + PORT + "/MeasurementAppServer/CheckLogin";
+        return preURL() + "CheckLogin";
     }
 
+    public static String getModelUploadServlet() {
+        return preURL() + "UploadModel";
+    }
 
+    public static String getModelServlet() {
+        return preURL() + "/GetModels";
+    }
 
     public static String getHistoryitemServlet() {
-        return "http://" + IP + ":" + PORT + "/MeasurementAppServer/History";
+        return preURL() + "History";
+    }
+
+    public static String getHistoryUploadServlet() {
+        return preURL() + "UploadHistoryItem";
     }
 }
