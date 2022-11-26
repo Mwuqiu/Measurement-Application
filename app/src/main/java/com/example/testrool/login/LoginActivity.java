@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.testrool.HomePageActivity;
+import com.example.testrool.Http.URLs;
 import com.example.testrool.R;
 import com.example.testrool.databinding.ActivityLoginBinding;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
+        final EditText ipAddressEditText = binding.ipAddress;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
 
@@ -115,6 +117,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
+                String IP_Address = ipAddressEditText.getText().toString();
+                URLs.setIP(IP_Address);
+
 
                 boolean res = loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());

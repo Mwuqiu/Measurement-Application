@@ -45,7 +45,7 @@ public class GalleryFragment extends ListFragment {
         if(!"root".equals(user.getDisplayName())){
             //联网状�?
             try {
-                String res = HttpUtil.postToServer(URLs.HISTORYITEM_SERVLET + "?id=" + user.getUserId(), null);
+                String res = HttpUtil.postToServer(URLs.getHistoryitemServlet() + "?id=" + user.getUserId(), null);
                 Log.e("RES", res);
                 JSONArray jsonArray = JSONArray.fromObject(res);
                 for (Object a : jsonArray){
