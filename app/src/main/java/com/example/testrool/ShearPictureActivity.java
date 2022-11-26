@@ -1,12 +1,17 @@
 package com.example.testrool;
 
 import com.example.testrool.Calculater.CalculateGray;
+import com.example.testrool.Http.HttpUtil;
+import com.example.testrool.Http.URLs;
 import com.example.testrool.bean.HistoryItem;
 import com.example.testrool.bean.LoggedInUser;
+import com.example.testrool.bean.Model;
 import com.example.testrool.ui.gallery.GalleryFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,13 +19,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class ShearPictureActivity extends AppCompatActivity {
@@ -38,7 +50,11 @@ public class ShearPictureActivity extends AppCompatActivity {
     private Button finishBtn;
 
     private Button reChoseBtn;
-    
+
+    Double greyRel;
+
+    Double concenRel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,53 +69,83 @@ public class ShearPictureActivity extends AppCompatActivity {
         imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
         picture = findViewById(R.id.picture);
         pictureCropping(imageUri);
-
+        reChoseBtn = findViewById(R.id.reshear_button);
+        reChoseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShearPictureActivity.this,HomePageActivity.class);
+                startActivity(intent);
+            }
+        });
         finishBtn = findViewById(R.id.confirm_button);
 
         reChoseBtn = findViewById(R.id.reshear_button);
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(fromActivity.equals("ModeBuild")){
-                    //TODO 跳转至创建模型界�? 传递浓度�?
-                    Intent intent = new Intent(ShearPictureActivity.this,ModeBuildActivity.class);
+
+                greyRel = CalculateGray.getGray(bitmap, 2);
+
+                if (fromActivity.equals("ModeBuild")) {
+                    Intent intent = new Intent(ShearPictureActivity.this, ModeBuildActivity.class);
                     intent.putExtra("picture_uri", imageUri.toString());
-                    intent.putExtra("cal_result",String.valueOf(new CalculateGray().getGray(bitmap,2)));
+                    intent.putExtra("cal_result", String.valueOf(CalculateGray.getGray(bitmap, 2)));
                     startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ShearPictureActivity.this, ShowResultActivity.class);
+                    ArrayList<Model> modelList = new ArrayList<>();
+                    ArrayList<String> itemNames = new ArrayList<>();
+                    try {
+                        String res = HttpUtil.postToServer(URLs.GET_MODEL_SERVLET + "?uid=" + LoggedInUser.getLoggedInUser().getUserId(), null);
+                        JSONArray jsonArray = JSONArray.fromObject(res);
+                        for (Object jsonObject : jsonArray) {
+                            JSONObject x = JSONObject.fromObject(jsonObject);
+                            Model model = Model.fromJSONObject(x);
+                            modelList.add(model);
+                            itemNames.add(model.getName());
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                    String[] itemNames = new String[modelList.size()];
+                    //String[] itemNames = {"model1","model2"};
+
+//                    Model model1 = new Model();
+//                    model1.setA(1.11);
+//                    model1.setB(12.2);
+//
+//                    Model model2 = new Model();
+//                    model2.setA(-1.11);
+//                    model2.setB(12.2);
+//
+//                    modelList.add(model1);
+//                    modelList.add(model2);
+
+
+                    //TODO 模型选择 选项框
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShearPictureActivity.this);
+                    builder.setNegativeButton("取消", null);
+                    builder.setTitle("请选择本次预测使用模型");
+                    String[] itemNamesArr = itemNames.toArray(new String[itemNames.size()]);
+                    builder.setItems(itemNamesArr, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Model chosenModel = modelList.get(i);
+                            Double a = chosenModel.getA();
+                            Double b = chosenModel.getB();
+                            concenRel = a * greyRel + b;
+                            intent.putExtra("picture_uri", imageUri.toString());
+                            intent.putExtra("grey_result", String.valueOf(greyRel));
+                            intent.putExtra("concen_result", String.valueOf(concenRel));
+                            intent.putExtra("model_name", chosenModel.getName());
+                            startActivity(intent);
+                        }
+                    }).show();
                 }
-                else{
-                    Intent intent = new Intent(ShearPictureActivity.this,ShowResultActivity.class);
-                    intent.putExtra("picture_uri", imageUri.toString());
-
-                    HistoryItem historyItem = new HistoryItem();
-
-                    String res = String.valueOf(new CalculateGray().getGray(bitmap,2));
-                    //mode = 1 average
-                    //mode = 2 middle
-                    intent.putExtra("cal_result",res);
-                    startActivity(intent);
-                    historyItem.setResult(res);
-                    historyItem.setDate(String.valueOf(new Date(System.currentTimeMillis())));
-//                    historyItem.setItemName();
-                    String uid = LoggedInUser.getLoggedInUser().getUserId().toString();
-
-
-                    //onDestroy();
-                }
-                //Intent intent = new Intent(ShearPictureActivity.this,ShowResultActivity.class);
-                //intent.putExtra("picture_uri", imageUri.toString());
-                //intent.putExtra("cal_result",String.valueOf(new CalculateGray().getGray(bitmap,2)));
-                //TO DO 改变 item 的�?
-//                GalleryFragment.my_array.add("testItem");
-//                GalleryFragment.my_array1.add("testItem1");
-                // startActivity(intent);
             }
         });
-
-
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        builder.detectFileUriExposure();
     }
 
     private void pictureCropping(Uri uri) {
@@ -125,11 +171,11 @@ public class ShearPictureActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case PICTURE_CROPPING_CODE:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     try {
                         bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(croppedUri));
                     } catch (FileNotFoundException e) {

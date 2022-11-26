@@ -35,31 +35,85 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.testrool.Calculater.CalculateModel;
+import com.example.testrool.Http.HttpUtil;
+import com.example.testrool.Http.URLs;
+import com.example.testrool.bean.LoggedInUser;
+import com.example.testrool.bean.Model;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ModeBuildActivity extends AppCompatActivity {
-
     static public ArrayList<String> imageId =  new ArrayList<>();
-
     static public ArrayList<String> imageConcen =  new ArrayList<>();
-
     static public ArrayList<String> imageGrayLevel =  new ArrayList<>();
+    static public ArrayList<String> imageUriList = new ArrayList<>();
 
     final int ChoosePhoto = 1;
-
     ListView listView;
-
-    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_build);
-
         Button btn = findViewById(R.id.add_btn);
+        Button buildBtn = findViewById(R.id.build_btn);
+        buildBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(imageConcen.size() != imageGrayLevel.size() || imageConcen.size() <= 1 ){
+                    Toast.makeText(getApplicationContext(), "请先完成图片浓度值的输入", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Double[] x = new Double[imageGrayLevel.size()];
+                Double[] y = new Double[imageConcen.size()];
+                for(int i = 0 ; i  < imageConcen.size() ;i++){
+                    x[i] = Double.parseDouble(imageConcen.get(i));
+                    y[i] = Double.parseDouble(imageGrayLevel.get(i));
+                }
+                Model model = CalculateModel.getModel(x,y,imageConcen.size());
+                Log.e("AB",model.getA() + " " + model.getB());
+                //生成输入model名字的输入框
+
+                final EditText inputServer = new EditText(ModeBuildActivity.this);
+                //inputServer.setHint("请在此处输入Model ：" + model +"的名称");
+
+                inputServer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+                AlertDialog.Builder builder = new AlertDialog.Builder(ModeBuildActivity.this);
+                builder.setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
+                        .setNegativeButton("取消", null);//设置取消键
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String sign = inputServer.getText().toString();//点击确认后获取输入框的内容
+                        if (sign != null && !sign.isEmpty()) {//如果内容不为空，这个判断是为了防止空指针
+                            // TODO 上传 MODLE  String -> Json  sign 为名字
+                            model.setName(sign);
+                            model.setDate(String.valueOf(System.currentTimeMillis()));
+                            JSONObject jsonObject = model.toJSONObject();
+                            jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
+                            try {
+                                HttpUtil.postToServer(URLs.UPLOAD_MODEL_SERVLET, jsonObject);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(ModeBuildActivity.this, "建立成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ModeBuildActivity.this,HomePageActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(ModeBuildActivity.this, "请为您建立的Model设置名称", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.show();//启动
+            }
+        });
 
         listView = findViewById(R.id.image_list);
 
@@ -68,9 +122,11 @@ public class ModeBuildActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent.getStringExtra("picture_uri") != null) {
-            imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
+            imageUriList.add(intent.getStringExtra("picture_uri"));
+//            imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
             imageId.add(String.valueOf(imageId.size() + 1));
             imageGrayLevel.add(intent.getStringExtra("cal_result"));
+            imageConcen.add("not added");
         }
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +148,9 @@ public class ModeBuildActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String sign = inputServer.getText().toString();//点击确认后获取输入框的内容
                         if (sign != null && !sign.isEmpty()) {//如果内容不为空，这个判断是为了防止空指针
+                            imageConcen.set(i,sign);
                             TextView tv_imageConcen = view.findViewById(R.id.image_concen);
-                            tv_imageConcen.setText(sign);
+                            tv_imageConcen.setText(imageConcen.get(i));
                         } else {
                             Toast.makeText(ModeBuildActivity.this, "浓度值为空", Toast.LENGTH_SHORT).show();
                         }
@@ -227,13 +284,18 @@ public class ModeBuildActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
+            Uri imageUri = Uri.parse(imageUriList.get(i));
+
             view = LayoutInflater.from(context).inflate(R.layout.buildmode_item, null);
 
             TextView tv_imageId = view.findViewById(R.id.image_id);
             TextView tv_imageGrayLevel = view.findViewById(R.id.image_grayLevel);
+            TextView tv_imageConcen = view.findViewById(R.id.image_concen);
 
             tv_imageId.setText(imageId.get(i));
             tv_imageGrayLevel.setText(imageGrayLevel.get(i));
+            tv_imageConcen.setText(imageConcen.get(i));
+
 
             ImageView imageView = view.findViewById(R.id.item_image);
             try {

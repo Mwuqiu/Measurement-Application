@@ -15,7 +15,6 @@ import java.io.IOException;
 public class LoginDataSource {
 
 
-    private String login_url = URLs.LOGIN_SERVLET;
 
 
     public Result<LoggedInUser> login(String email, String password) {
@@ -51,7 +50,7 @@ public class LoginDataSource {
         JSONObject postJsonObject = new JSONObject();
         postJsonObject.put("email", email);
         postJsonObject.put("password", password);
-        String res = HttpUtil.postToServer(login_url, postJsonObject);
+        String res = HttpUtil.postToServer(URLs.getLoginServlet(), postJsonObject);
         return new JSONObject(res);
     }
 

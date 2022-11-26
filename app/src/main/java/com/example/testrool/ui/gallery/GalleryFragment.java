@@ -15,16 +15,13 @@ import com.example.testrool.Http.URLs;
 import com.example.testrool.adapter.HistoryAdapter;
 import com.example.testrool.bean.HistoryItem;
 import com.example.testrool.bean.LoggedInUser;
-import com.example.testrool.ShowResultActivity;
 import com.example.testrool.databinding.FragmentGalleryBinding;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+
 
 public class GalleryFragment extends ListFragment {
 
@@ -48,15 +45,12 @@ public class GalleryFragment extends ListFragment {
         if(!"root".equals(user.getDisplayName())){
             //联网状�?
             try {
-                String res = HttpUtil.postToServer(URLs.HISTORYITEM_SERVLET + "?id=" + user.getUserId(), null);
+                String res = HttpUtil.postToServer(URLs.getHistoryitemServlet() + "?id=" + user.getUserId(), null);
                 Log.e("RES", res);
                 JSONArray jsonArray = JSONArray.fromObject(res);
                 for (Object a : jsonArray){
-                    JSONObject x = (JSONObject) JSONObject.fromObject(a);
-                    HistoryItem historyItem = new HistoryItem();
-                    historyItem.setItemName((String) x.get("itemName"));
-                    historyItem.setResult((String) x.get("result"));
-                    historyItem.setDate((String) x.get("date"));
+                    JSONObject x = JSONObject.fromObject(a);
+                    HistoryItem historyItem = HistoryItem.fromJSONObject(x);
                     historyItems.add(historyItem);
                 }
             } catch (InterruptedException e) {
@@ -67,20 +61,20 @@ public class GalleryFragment extends ListFragment {
         }else{
             //离线状�?
             HistoryItem historyItem = new HistoryItem();
-            historyItem.setItemName("敌敌�?");
+            historyItem.setItemName("敌敌畏?");
             historyItem.setResult("合格");
             historyItem.setDate("2021-02-19 13:14:07");
             historyItems.add(historyItem);
 
             historyItem = new HistoryItem();
-            historyItem.setItemName("敌敌�?");
-            historyItem.setResult("不合�?");
+            historyItem.setItemName("敌敌畏?");
+            historyItem.setResult("不合格?");
             historyItem.setDate("2022-11-19 10:01:15");
             historyItems.add(historyItem);
 
             historyItem = new HistoryItem();
             historyItem.setItemName("2,4-D");
-            historyItem.setResult("不合�?");
+            historyItem.setResult("不合格?");
             historyItem.setDate("2022-09-11 08:31:22");
             historyItems.add(historyItem);
         }

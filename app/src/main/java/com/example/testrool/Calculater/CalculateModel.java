@@ -3,28 +3,17 @@ package com.example.testrool.Calculater;
 import static java.lang.Math.abs;
 import android.util.Log;
 
+import com.example.testrool.bean.Model;
+
 public class CalculateModel {
-    //灰度值
-    double[] x={46.46566667,44.11233333,42.57,40.865,35.34566667,28.933,22.196,18.624,12.293};
+/*    //灰度值
+    Double[] x={46.46566667,44.11233333,42.57,40.865,35.34566667,28.933,22.196,18.624,12.293};
     //浓度值
-    double[] y={0.1,0.5,1,2,5,8,10,12,15};
-    int num=9;
+    Double[] y={0.1,0.5,1.0,2.0,5.0,8.0,10.0,12.0,15.0};
 
-    CalculateModel(){}
+    int num=9;*/
 
-    CalculateModel(double[] x, double[] y,int num){
-        this.x = x;
-        this.y = y;
-        this.num = num;
-    }
-
-    public String get_Model(){
-        String str=getmodel(x,y,num);
-        Log.v("aaa",str);//控制台输出拟合方程
-        return str;
-    }
-
-    private String getmodel(double[] x, double[] y, int num){
+    public static Model getModel(Double[] x, Double[] y, int num){
         double denominator = 0.0;
         double sum_xsquared = 0.0;
         double sum_y = 0.0;
@@ -38,14 +27,16 @@ public class CalculateModel {
             sum_xy += x[i] * y[i];
         }
         denominator = (num * sum_xsquared - sum_x * sum_x);
-        if ( abs(denominator) <=  1e-15)
+/*        if ( abs(denominator) <=  1e-15)
         {
             return null;
-        }
+        }*/
         double a = (num * sum_xy - sum_x * sum_y) / denominator;
         double b = (sum_xsquared * sum_y - sum_x * sum_xy) / denominator;
-        String str="y="+a+"*x+"+b;
-        Log.e("aaa","111");
-        return str;
+
+        Model model = new Model();
+        model.setA(a);
+        model.setB(b);
+        return model;
     }
 }

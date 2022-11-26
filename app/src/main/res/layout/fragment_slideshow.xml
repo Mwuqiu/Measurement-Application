@@ -33,28 +33,55 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv0"
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_marginBottom="5sp"
-                android:layout_weight="1"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/image_5"
-                android:text="采样时间"
-                android:textSize="20sp"
-                android:typeface="serif" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="0.8"
+                    android:text="采样时间"
+                    android:textSize="20sp"
+                    android:typeface="serif" />
+                <TextView
+                    android:id="@+id/get_model_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="2"
+                    android:textSize="20sp"
+                    android:typeface="serif" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5sp"
-                android:layout_weight="1"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/image_5"
-                android:text="采用模型"
-                android:textSize="20sp"
-                android:typeface="serif" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="0.8"
+                    android:text="采用模型"
+                    android:textSize="20sp"
+                    android:typeface="serif" />
+                <TextView
+                    android:id="@+id/show_model_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5sp"
+                    android:layout_weight="2"
+                    android:textSize="20sp"
+                    android:typeface="serif" />
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -70,6 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:id="@+id/show_rel"
             android:layout_marginLeft="20sp"
             android:text="结果分析"
             android:textSize="25sp"
@@ -92,12 +120,11 @@
         android:background="@drawable/image_6">
 
         <TextView
-            android:id="@+id/tv2"
+            android:id="@+id/analize"
             android:layout_width="270dp"
             android:layout_height="158dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="80sp"
-            android:text="welcome to result page ~"
             android:textSize="25sp"
             android:typeface="serif" />
 

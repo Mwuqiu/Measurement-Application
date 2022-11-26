@@ -59,7 +59,7 @@ public class HttpUtil {
         return result;
     }
 
-    public static void post(Object param, String url) {
+    private static void post(Object param, String url) {
         String str = null;
         if(param == null)  str = "";
         else str = param.toString();
