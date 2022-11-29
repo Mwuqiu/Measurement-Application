@@ -60,20 +60,20 @@ public class GalleryFragment extends ListFragment {
             }
         }else{
             HistoryItem historyItem = new HistoryItem();
-            historyItem.setItemName("敌敌畏?");
+            historyItem.setItemName("敌敌畏");
             historyItem.setResult("合格");
             historyItem.setDate("2021-02-19 13:14:07");
             historyItems.add(historyItem);
 
             historyItem = new HistoryItem();
-            historyItem.setItemName("敌敌畏?");
-            historyItem.setResult("不合格?");
+            historyItem.setItemName("敌敌畏");
+            historyItem.setResult("不合格");
             historyItem.setDate("2022-11-19 10:01:15");
             historyItems.add(historyItem);
 
             historyItem = new HistoryItem();
             historyItem.setItemName("2,4-D");
-            historyItem.setResult("不合格?");
+            historyItem.setResult("不合格");
             historyItem.setDate("2022-09-11 08:31:22");
             historyItems.add(historyItem);
         }
