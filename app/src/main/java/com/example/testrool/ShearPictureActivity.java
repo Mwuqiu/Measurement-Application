@@ -31,41 +31,27 @@ import net.sf.json.JSONObject;
 
 
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
 public class ShearPictureActivity extends AppCompatActivity {
-
     final static int PICTURE_CROPPING_CODE = 1;
-
     Bitmap bitmap = null;
-
     private Uri imageUri;
-
     private Uri croppedUri;
-
     private ImageView picture;
-
     private Button finishBtn;
-
     private Button reChoseBtn;
-
     Double greyRel;
-
     Double concenRel;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shear_picture);
-
         Intent intent = getIntent();
-
         String fromActivity = intent.getStringExtra("fromActivity");
-
         imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
         picture = findViewById(R.id.picture);
         pictureCropping(imageUri);
@@ -78,14 +64,11 @@ public class ShearPictureActivity extends AppCompatActivity {
             }
         });
         finishBtn = findViewById(R.id.confirm_button);
-
         reChoseBtn = findViewById(R.id.reshear_button);
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 greyRel = CalculateGray.getGray(bitmap, 2);
-
                 if (fromActivity.equals("ModeBuild")) {
                     Intent intent = new Intent(ShearPictureActivity.this, ModeBuildActivity.class);
                     intent.putExtra("picture_uri", imageUri.toString());
@@ -135,11 +118,17 @@ public class ShearPictureActivity extends AppCompatActivity {
                             Model chosenModel = modelList.get(i);
                             Double a = chosenModel.getA();
                             Double b = chosenModel.getB();
-                            concenRel = a * greyRel + b;
+                            concenRel = (greyRel - b)/a;
                             intent.putExtra("picture_uri", imageUri.toString());
                             intent.putExtra("grey_result", String.valueOf(greyRel));
                             intent.putExtra("concen_result", String.valueOf(concenRel));
                             intent.putExtra("model_name", chosenModel.getName());
+                            intent.putExtra("fromActivity", "ShearPictureActivity");
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                            Date curDate = new Date(System.currentTimeMillis());
+                            String strTime = formatter.format(curDate);
+
+                            intent.putExtra("get_time", strTime);
                             startActivity(intent);
                         }
                     }).show();

@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class HomePageActivity extends AppCompatActivity {
+
     private AppBarConfiguration mAppBarConfiguration;
 
     private ActivityMineInfoBinding binding;
@@ -75,7 +76,7 @@ public class HomePageActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_mine_info);
@@ -118,22 +119,26 @@ public class HomePageActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mine_info, menu);
         return true;
     }
 
-    /*@Override
+/*    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.shareButton:
                 //to do tiaozhuan share page
+                int a;
+                a= 1;
                 break;
         }
         return true;
-    }
-*/
+    }*/
+
 
 
     @Override

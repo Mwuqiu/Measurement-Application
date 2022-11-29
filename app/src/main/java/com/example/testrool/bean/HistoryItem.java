@@ -8,8 +8,6 @@ public class HistoryItem {
     String result;
     String date;
 
-
-
     public String getItemName() {
         return itemName;
     }

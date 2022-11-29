@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -34,20 +33,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.testrool.Calculater.CalculateModel;
 import com.example.testrool.Http.HttpUtil;
 import com.example.testrool.Http.URLs;
 import com.example.testrool.bean.LoggedInUser;
 import com.example.testrool.bean.Model;
-
-import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
-
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ModeBuildActivity extends AppCompatActivity {
     static public ArrayList<String> imageId =  new ArrayList<>();

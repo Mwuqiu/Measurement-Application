@@ -1,10 +1,12 @@
 package com.example.testrool.ui.gallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
@@ -12,6 +14,7 @@ import androidx.fragment.app.ListFragment;
 import com.example.testrool.Http.HttpUtil;
 import com.example.testrool.R;
 import com.example.testrool.Http.URLs;
+import com.example.testrool.ShowResultActivity;
 import com.example.testrool.adapter.HistoryAdapter;
 import com.example.testrool.bean.HistoryItem;
 import com.example.testrool.bean.LoggedInUser;
@@ -79,38 +82,24 @@ public class GalleryFragment extends ListFragment {
             historyItems.add(historyItem);
         }
 
-
         binding.list.setAdapter(new HistoryAdapter(getActivity(),R.layout.history_item,historyItems));
 
-
-        /*lv1 = binding.list;
-
-        lv1.setAdapter(new MyAdaptor(HistoryPageActivity.this));//上下文传activity*/
-
-
-//        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                //点击条目�?到resultactivity,�?显示详细信息，待补充
-//                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
-//                //TO DO �? result Page 传递信�?
-//                startActivity(intent);
-//            }
-//        });
-
-/*        final TextView textView = binding.textGallery;
-
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
-        final Button button = binding.testButton;
-        button.setOnClickListener(new View.OnClickListener() {
+        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "a ba a ba", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
+
+                intent.putExtra("fromActivity", "HistoryItem");
+
+                intent.putExtra("whole_result", historyItems.get(i).getResult());
+                intent.putExtra("model_name", historyItems.get(i).getItemName());
+                intent.putExtra("get_time", historyItems.get(i).getDate());
+
+                startActivity(intent);
+                Log.e("test","aaaa");
+            }
+        });
         return root;
     }
 
