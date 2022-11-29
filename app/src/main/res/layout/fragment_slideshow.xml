@@ -129,5 +129,12 @@
             android:typeface="serif" />
 
     </LinearLayout>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="SHARE"
+        android:layout_marginLeft="150sp"
+        android:id="@+id/sharebtn"
+    />
 </LinearLayout>
