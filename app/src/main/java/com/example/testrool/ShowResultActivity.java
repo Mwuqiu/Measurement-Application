@@ -53,8 +53,7 @@ public class ShowResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_slideshow);
         Intent intent = getIntent();
-        imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
-        imageView = findViewById(R.id.image0);
+
 
         shareButton = findViewById(R.id.sharebtn);
 
@@ -82,45 +81,54 @@ public class ShowResultActivity extends Activity {
 
         });
 
-        Bitmap bitmap = null;
-        try {
-            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-        } catch (
-                FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        String fromActivity = intent.getStringExtra("fromActivity");
 
-        imageView.setImageBitmap(bitmap);
+        if(fromActivity.equals("ShearPictureActivity")){
+            //设置图片
+            imageUri = Uri.parse(intent.getStringExtra("picture_uri"));
+            imageView = findViewById(R.id.image0);
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            imageView.setImageBitmap(bitmap);
+            //设置分析结果
+            resultText = findViewById(R.id.analize);
+            String str = "采用模型 : " + intent.getStringExtra("model_name") + "图片灰度值 : "+intent.getStringExtra("grey_result")
+                    + "预测浓度值 : " + intent.getStringExtra("concen_result");
+            resultText.setText(str);
+            //设置采样时间
+            getTime = findViewById(R.id.get_model_time);
+            getTime.setText(intent.getStringExtra("get_time"));
+            //设置使用模型
+            modelName = findViewById(R.id.show_model_name);
+            modelName.setText(intent.getStringExtra("model_name"));
 
-        resultText = findViewById(R.id.analize);
 
-        String str = "采用模型 : " + intent.getStringExtra("model_name") + "图片灰度值 : " + intent.getStringExtra("grey_result")
-                + "预测浓度值 : " + intent.getStringExtra("concen_result");
+            //将消息传递给historyPage
+            HistoryItem historyItem = new HistoryItem();
+            historyItem.setItemName(intent.getStringExtra("model_name"));
+            historyItem.setDate(String.valueOf(getTime.getText()));
+            historyItem.setResult(intent.getStringExtra("concen_result"));
 
-        resultText.setText(str);
+            JSONObject jsonObject = historyItem.toJSONObject();
+            jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
+            try {
+                HttpUtil.postToServer(URLs.getHistoryUploadServlet(),jsonObject);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else{
+            getTime = findViewById(R.id.get_model_time);
+            getTime.setText(intent.getStringExtra("get_time"));
 
-        getTime = findViewById(R.id.get_model_time);
+            modelName = findViewById(R.id.show_model_name);
+            modelName.setText(intent.getStringExtra("model_name"));
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis());
-        String strTime = formatter.format(curDate);
-        getTime.setText(strTime);
-
-        modelName = findViewById(R.id.show_model_name);
-        modelName.setText(intent.getStringExtra("model_name"));
-        //TODO 为历史界面添加信息
-        HistoryItem historyItem = new HistoryItem();
-        historyItem.setItemName(intent.getStringExtra("model_name"));
-        historyItem.setDate(curDate.toString());
-        historyItem.setResult(intent.getStringExtra("concen_result"));
-
-        JSONObject jsonObject = historyItem.toJSONObject();
-        jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
-        try {
-            HttpUtil.postToServer(URLs.getHistoryUploadServlet(), jsonObject);
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
+            resultText = findViewById(R.id.analize);
+            resultText.setText(intent.getStringExtra("whole_result"));
         }
 
     }
