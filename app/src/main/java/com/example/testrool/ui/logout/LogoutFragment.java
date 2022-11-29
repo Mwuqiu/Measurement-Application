@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.testrool.ActivityCollectorUtil;
+import com.example.testrool.ModeBuildActivity;
 import com.example.testrool.R;
 import com.example.testrool.bean.LoggedInUser;
 import com.example.testrool.databinding.ActivityMineInfoBinding;
@@ -78,6 +80,7 @@ public class LogoutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO 退出登录
+                ActivityCollectorUtil.finishAllActivity();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }

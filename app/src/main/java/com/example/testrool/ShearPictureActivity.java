@@ -135,6 +135,7 @@ public class ShearPictureActivity extends AppCompatActivity {
                 }
             }
         });
+        ActivityCollectorUtil.addActivity(ShearPictureActivity.this);
     }
 
     private void pictureCropping(Uri uri) {
@@ -176,4 +177,9 @@ public class ShearPictureActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollectorUtil.removeActivity(ShearPictureActivity.this);
+    }
 }

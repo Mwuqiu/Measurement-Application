@@ -152,7 +152,15 @@ public class ModeBuildActivity extends AppCompatActivity {
                 builder.show();//启动
             }
         });
+        ActivityCollectorUtil.addActivity(ModeBuildActivity.this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollectorUtil.removeActivity(ModeBuildActivity.this);
+    }
+
     //两者皆有
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

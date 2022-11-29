@@ -83,6 +83,15 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
+        ActivityCollectorUtil.addActivity(HomePageActivity.this);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollectorUtil.removeActivity(HomePageActivity.this);
     }
 
     private void showChoseWayMenu(View view) {

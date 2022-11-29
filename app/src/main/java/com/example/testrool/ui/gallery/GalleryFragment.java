@@ -39,14 +39,11 @@ public class GalleryFragment extends ListFragment {
 
         View root = binding.getRoot();
 
-//        binding.list.setAdapter(new MyAdaptor(getActivity()));
-
         ArrayList<HistoryItem> historyItems = new ArrayList<>();
 
         LoggedInUser user = LoggedInUser.getLoggedInUser();
 
         if(!"root".equals(user.getDisplayName())){
-            //联网状�?
             try {
                 String res = HttpUtil.postToServer(URLs.getHistoryitemServlet() + "?id=" + user.getUserId(), null);
                 Log.e("RES", res);
@@ -62,7 +59,6 @@ public class GalleryFragment extends ListFragment {
                 e.printStackTrace();
             }
         }else{
-            //离线状�?
             HistoryItem historyItem = new HistoryItem();
             historyItem.setItemName("敌敌畏?");
             historyItem.setResult("合格");
@@ -82,24 +78,10 @@ public class GalleryFragment extends ListFragment {
             historyItems.add(historyItem);
         }
 
+        HistoryAdapter.activity = getActivity();
+
         binding.list.setAdapter(new HistoryAdapter(getActivity(),R.layout.history_item,historyItems));
 
-        binding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent intent = new Intent(getActivity(), ShowResultActivity.class);
-
-                intent.putExtra("fromActivity", "HistoryItem");
-
-                intent.putExtra("whole_result", historyItems.get(i).getResult());
-                intent.putExtra("model_name", historyItems.get(i).getItemName());
-                intent.putExtra("get_time", historyItems.get(i).getDate());
-
-                startActivity(intent);
-                Log.e("test","aaaa");
-            }
-        });
         return root;
     }
 

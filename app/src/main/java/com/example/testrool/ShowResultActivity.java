@@ -23,6 +23,7 @@ public class ShowResultActivity extends Activity {
     TextView modelName;
 
     Uri imageUri;
+    String fromActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class ShowResultActivity extends Activity {
         setContentView(R.layout.fragment_slideshow);
         Intent intent = getIntent();
 
-        String fromActivity = intent.getStringExtra("fromActivity");
+        fromActivity = intent.getStringExtra("fromActivity");
 
         if(fromActivity.equals("ShearPictureActivity")){
             //设置图片
@@ -45,8 +46,10 @@ public class ShowResultActivity extends Activity {
             imageView.setImageBitmap(bitmap);
             //设置分析结果
             resultText = findViewById(R.id.analize);
+
             String str = "采用模型 : " + intent.getStringExtra("model_name") + "图片灰度值 : "+intent.getStringExtra("grey_result")
                     + "预测浓度值 : " + intent.getStringExtra("concen_result");
+
             resultText.setText(str);
             //设置采样时间
             getTime = findViewById(R.id.get_model_time);
@@ -61,7 +64,6 @@ public class ShowResultActivity extends Activity {
             historyItem.setItemName(intent.getStringExtra("model_name"));
             historyItem.setDate(String.valueOf(getTime.getText()));
             historyItem.setResult(intent.getStringExtra("concen_result"));
-
             JSONObject jsonObject = historyItem.toJSONObject();
             jsonObject.put("uid", LoggedInUser.getLoggedInUser().getUserId());
             try {
@@ -77,15 +79,20 @@ public class ShowResultActivity extends Activity {
             modelName.setText(intent.getStringExtra("model_name"));
 
             resultText = findViewById(R.id.analize);
-            resultText.setText(intent.getStringExtra("whole_result"));
+            resultText.setText("预测浓度值 : " + intent.getStringExtra("whole_result"));
+
         }
+        ActivityCollectorUtil.addActivity(ShowResultActivity.this);
     }
 
     // to do 改变跳转的方式  这个会卡一下  避免使用回退键
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent intent = new Intent(ShowResultActivity.this,HomePageActivity.class);
-        startActivity(intent);
+        ActivityCollectorUtil.removeActivity(ShowResultActivity.this);
+        if(fromActivity.equals("ShearPictureActivity")){
+            Intent intent = new Intent(ShowResultActivity.this,HomePageActivity.class);
+            startActivity(intent);
+        }
     }
 }
