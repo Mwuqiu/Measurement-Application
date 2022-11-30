@@ -68,7 +68,7 @@ public class ShearPictureActivity extends AppCompatActivity {
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                greyRel = CalculateGray.getGray(bitmap, 2);
+                greyRel = CalculateGray.getGray(bitmap, 1);
                 if (fromActivity.equals("ModeBuild")) {
                     Intent intent = new Intent(ShearPictureActivity.this, ModeBuildActivity.class);
                     intent.putExtra("picture_uri", imageUri.toString());

@@ -43,12 +43,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ModeBuildActivity extends AppCompatActivity {
+
     static public ArrayList<String> imageId =  new ArrayList<>();
     static public ArrayList<String> imageConcen =  new ArrayList<>();
     static public ArrayList<String> imageGrayLevel =  new ArrayList<>();
     static public ArrayList<String> imageUriList = new ArrayList<>();
 
     final int ChoosePhoto = 1;
+
     ListView listView;
 
     @Override
@@ -99,6 +101,7 @@ public class ModeBuildActivity extends AppCompatActivity {
                             Toast.makeText(ModeBuildActivity.this, "建立成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ModeBuildActivity.this,HomePageActivity.class);
                             startActivity(intent);
+                            clearList();
                         } else {
                             Toast.makeText(ModeBuildActivity.this, "请为您建立的Model设置名称", Toast.LENGTH_SHORT).show();
                         }
@@ -153,6 +156,14 @@ public class ModeBuildActivity extends AppCompatActivity {
             }
         });
         ActivityCollectorUtil.addActivity(ModeBuildActivity.this);
+    }
+
+
+    private void clearList(){
+        imageId.clear();
+        imageConcen.clear();
+        imageGrayLevel.clear();
+        imageUriList.clear();
     }
 
     @Override
