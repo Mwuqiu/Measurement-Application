@@ -13,7 +13,7 @@
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:id="@+id/ivv"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/image_1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 

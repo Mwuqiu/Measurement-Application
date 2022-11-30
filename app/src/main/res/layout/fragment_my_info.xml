@@ -20,7 +20,7 @@
         <ImageView
             android:id="@+id/profile"
             android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_height="75dp"
             android:layout_marginLeft="15dp"
             android:src="@drawable/evil2" />
 
@@ -88,7 +88,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:src="@drawable/ic_manual"/>
+
         <TextView
+            android:id="@+id/guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -106,6 +108,7 @@
             android:background="#dadada" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/re_aboutwe"
         android:layout_width="match_parent"
@@ -113,6 +116,7 @@
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:paddingLeft="12dp">
+
         <ImageView
             android:id="@+id/icon2"
             android:layout_width="24dp"
@@ -120,8 +124,10 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/ic_about"/>
+            android:src="@drawable/ic_about" />
+
         <TextView
+            android:id="@+id/about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -132,6 +138,7 @@
             android:textSize="16sp" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:id="@+id/re_help"
@@ -148,6 +155,7 @@
             android:layout_marginLeft="12dp"
             android:src="@drawable/ic_help" />
         <TextView
+            android:id="@+id/help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -181,6 +189,7 @@
             android:layout_marginLeft="12dp"
             android:src="@drawable/ic_agreement" />
         <TextView
+            android:id="@+id/agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -207,6 +216,7 @@
             android:layout_marginLeft="12dp"
             android:src="@drawable/ic_permition" />
         <TextView
+            android:id="@+id/power"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

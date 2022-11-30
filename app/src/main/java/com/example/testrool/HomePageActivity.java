@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testrool.ui.gallery.GalleryFragment;
@@ -73,6 +75,68 @@ public class HomePageActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
+        //跳转
+        //----------------------------------------------------------------------
+        TextView tv_atc1 = findViewById(R.id.atc1);
+        ImageView iv_home_im1 = findViewById(R.id.home_im1);
+        View.OnClickListener viewClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
+                String str1=getString(R.string.news1);
+                intent.putExtra("content", str1);
+                startActivity(intent);
+            }
+        };
+        tv_atc1.setOnClickListener(viewClickListener);
+        iv_home_im1.setOnClickListener(viewClickListener);
+
+        //----------------------------------------------------------------------
+        TextView tv_atc2 = findViewById(R.id.atc2);
+        ImageView iv_home_im2 = findViewById(R.id.home_im2);
+        viewClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
+                String str1=getString(R.string.news2);
+                intent.putExtra("content", str1);
+                startActivity(intent);
+            }
+        };
+        tv_atc2.setOnClickListener(viewClickListener);
+        iv_home_im2.setOnClickListener(viewClickListener);
+        //----------------------------------------------------------------------
+        TextView tv_atc3 = findViewById(R.id.atc3);
+        ImageView iv_home_im3 = findViewById(R.id.home_im3);
+        viewClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
+                String str1=getString(R.string.yao1);
+                intent.putExtra("content", str1);
+                startActivity(intent);
+            }
+        };
+        tv_atc3.setOnClickListener(viewClickListener);
+        iv_home_im3.setOnClickListener(viewClickListener);
+
+        //----------------------------------------------------------------------
+        TextView tv_atc4 = findViewById(R.id.atc4);
+        ImageView iv_home_im4 = findViewById(R.id.home_im4);
+        viewClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
+                String str1=getString(R.string.yao2);
+                intent.putExtra("content", str1);
+                startActivity(intent);
+            }
+        };
+        tv_atc4.setOnClickListener(viewClickListener);
+        iv_home_im4.setOnClickListener(viewClickListener);
+        //over----------------------------------------------------------------------
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -83,9 +147,7 @@ public class HomePageActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
         ActivityCollectorUtil.addActivity(HomePageActivity.this);
-
     }
 
     @Override
