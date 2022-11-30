@@ -99,8 +99,8 @@ public class ShowResultActivity extends Activity {
             //设置分析结果
             resultText = findViewById(R.id.analize);
 
-            String str = "采用模型 : " + intent.getStringExtra("model_name") + "图片灰度值 : "+intent.getStringExtra("grey_result")
-                    + "预测浓度值 : " + intent.getStringExtra("concen_result");
+            String str = "采用模型 : " + intent.getStringExtra("model_name") + "\n图片灰度值 : "+intent.getStringExtra("grey_result")
+                    + "\n预测浓度值 : " + intent.getStringExtra("concen_result");
 
             resultText.setText(str);
             //设置采样时间

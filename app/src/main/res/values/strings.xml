@@ -16,7 +16,7 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_ip_address">IP Address</string>
 
-    <string name="default_ip_address">192.168.212.191</string>
+    <string name="default_ip_address">49.140.60.45</string>
 
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
