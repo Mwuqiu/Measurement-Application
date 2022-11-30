@@ -15,7 +15,9 @@ public class MessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mess);
         Intent intent = getIntent();
         TextView tvv = findViewById(R.id.messtext);
+        TextView title = findViewById(R.id.title);
         tvv.setText(intent.getStringExtra("content"));
+        title.setText(intent.getStringExtra("title"));
 
         // 尝试滑动
         tvv.setMovementMethod(ScrollingMovementMethod.getInstance());

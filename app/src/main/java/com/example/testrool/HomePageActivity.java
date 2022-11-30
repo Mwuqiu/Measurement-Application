@@ -78,6 +78,8 @@ public class HomePageActivity extends AppCompatActivity {
 
         //跳转
         //----------------------------------------------------------------------
+        TextView title = findViewById(R.id.title);
+        //----------------------------------------------------------------------
         TextView tv_atc1 = findViewById(R.id.atc1);
         ImageView iv_home_im1 = findViewById(R.id.home_im1);
         View.OnClickListener viewClickListener = new View.OnClickListener() {
@@ -85,7 +87,9 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
                 String str1=getString(R.string.news1);
+                String title1=getString(R.string.ntitle1);
                 intent.putExtra("content", str1);
+                intent.putExtra("title",title1);
                 startActivity(intent);
             }
         };
@@ -100,7 +104,9 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
                 String str1=getString(R.string.news2);
+                String title1=getString(R.string.ntitle2);
                 intent.putExtra("content", str1);
+                intent.putExtra("title",title1);
                 startActivity(intent);
             }
         };
@@ -114,7 +120,9 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
                 String str1=getString(R.string.yao1);
+                String title1=getString(R.string.ytitle1);
                 intent.putExtra("content", str1);
+                intent.putExtra("title",title1);
                 startActivity(intent);
             }
         };
@@ -129,7 +137,9 @@ public class HomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomePageActivity.this,MessActivity.class);
                 String str1=getString(R.string.yao2);
+                String title1=getString(R.string.ytitle2);
                 intent.putExtra("content", str1);
+                intent.putExtra("title",title1);
                 startActivity(intent);
             }
         };
