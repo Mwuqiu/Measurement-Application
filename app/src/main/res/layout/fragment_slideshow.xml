@@ -126,7 +126,7 @@
             android:layout_height="158dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="80sp"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:typeface="serif" />
 
     </LinearLayout>

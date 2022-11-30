@@ -173,11 +173,10 @@ public class ModeBuildActivity extends AppCompatActivity {
     }
 
     //两者皆有
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoosePhoto:
-                assert data != null;
                 handleImageOnKitKat(data);
             default:
                 break;

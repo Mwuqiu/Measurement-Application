@@ -124,7 +124,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="50sp"
             android:text="welcome to result page ~"
-            android:textSize="17sp"
+            android:textSize="15dp"
             android:typeface="serif" />
 
     </LinearLayout>

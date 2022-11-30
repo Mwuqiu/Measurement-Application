@@ -72,7 +72,7 @@ public class ShearPictureActivity extends AppCompatActivity {
                 if (fromActivity.equals("ModeBuild")) {
                     Intent intent = new Intent(ShearPictureActivity.this, ModeBuildActivity.class);
                     intent.putExtra("picture_uri", imageUri.toString());
-                    intent.putExtra("cal_result", String.valueOf(CalculateGray.getGray(bitmap, 2)));
+                    intent.putExtra("cal_result", String.valueOf(CalculateGray.getGray(bitmap, 1)));
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(ShearPictureActivity.this, ShowResultActivity.class);

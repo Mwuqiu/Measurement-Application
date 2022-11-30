@@ -146,7 +146,7 @@
         android:layout_marginTop="45dp"
         android:layout_marginLeft="15dp"
         android:textAlignment="center"
-        android:text="科技创新"
+        android:text="阿维菌素"
         android:textColor="@color/black"
         android:textSize="25dp"
         app:layout_constraintLeft_toRightOf="@id/home_im4"
