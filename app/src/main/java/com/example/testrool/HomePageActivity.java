@@ -72,6 +72,7 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
 
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 

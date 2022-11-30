@@ -124,7 +124,7 @@ public class ShearPictureActivity extends AppCompatActivity {
                             intent.putExtra("concen_result", String.valueOf(concenRel));
                             intent.putExtra("model_name", chosenModel.getName());
                             intent.putExtra("fromActivity", "ShearPictureActivity");
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date curDate = new Date(System.currentTimeMillis());
                             String strTime = formatter.format(curDate);
 
